@@ -131,7 +131,8 @@ def render_chat_message(message: Dict[str, Any], is_user: bool):
             if "sources" in message and message["sources"]:
                 with st.expander("Show sources"):
                     for i, source in enumerate(message["sources"]):
-                        st.markdown(f"**Source {i+1}** (Score: {source['similarity_score']:.4f})")
+                        source_filename = source.get("metadata", {}).get("filename", "Unknown")
+                        st.markdown(f"**Source {i+1}: {source_filename}** (Score: {source['similarity_score']:.4f})")
                         st.text(source["text"][:500] + "..." if len(source["text"]) > 500 else source["text"])
                         st.divider()
             

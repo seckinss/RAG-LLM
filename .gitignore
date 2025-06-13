@@ -161,3 +161,6 @@ credentials.json # example
 .idea/
 *.swp
 *.swo 
+# Local data and secrets
+data/vectordb/
+.env

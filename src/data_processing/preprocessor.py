@@ -115,7 +115,7 @@ class TextPreprocessor:
         file_path = Path(file_path)
         file_ext = file_path.suffix.lower()
         metadata = {
-            "source": str(file_path),
+            "source": file_path.name,
             "filename": file_path.name,
         }
         
