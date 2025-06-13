@@ -1,0 +1,187 @@
+#!/bin/bash
+# Script to download sample data for the RAG Q&A system
+
+# Create raw directory if it doesn't exist
+mkdir -p raw
+
+# Download some sample documents from Project Gutenberg
+echo "Downloading sample documents from Project Gutenberg..."
+
+# Download Pride and Prejudice
+echo "Downloading Pride and Prejudice..."
+curl -s -o raw/pride_and_prejudice.txt https://www.gutenberg.org/files/1342/1342-0.txt
+
+# Download The Art of War
+echo "Downloading The Art of War..."
+curl -s -o raw/art_of_war.txt https://www.gutenberg.org/cache/epub/132/pg132.txt
+
+# Download Frankenstein
+echo "Downloading Frankenstein..."
+curl -s -o raw/frankenstein.txt https://www.gutenberg.org/files/84/84-0.txt
+
+# My AIN200 Article As Sample Data
+echo "Creating a sample essay about Machine Learning..."
+cat > raw/good_and_bad_sides_of_ai.txt << 'EOF'
+# The Good and Bad Sides of AI
+
+## Introduction
+Artificial Intelligence and Machine Learning have become impossible to ignore in recent years, and for good reason. These technologies are reshaping everything from how we shop online to how doctors diagnose diseases. But like most powerful technologies, AI brings both remarkable opportunities and serious risks that deserve careful consideration.
+
+Machine Learning essentially teaches computers to recognize patterns in data rather than programming them with explicit instructions for every task. Think about Netflix recommendations - the system doesn't know you prefer action movies because someone programmed that preference, but because it learned from your viewing history and compared it with similar users.
+
+As AI systems become more sophisticated and influential in critical areas of our lives, understanding both their potential benefits and possible harms becomes essential. While some applications could help solve major global challenges, others risk amplifying existing inequalities or enabling misuse.
+
+This makes it crucial to distinguish between responsible AI development and problematic applications. The choices we make about AI today will shape society for decades, so getting this right matters more than we might realize.
+
+## Machine Learning Fundamentals
+### Different Learning Approaches
+To better understand AI, we need to examine how machines actually learn. Several main approaches exist, each suited to different types of problems.
+
+Supervised Learning works much like traditional education - you provide the computer with numerous examples along with correct answers, allowing it to recognize patterns for future similar problems. Training a computer to identify cats in photos means showing it thousands of labeled images until it learns what distinguishes cats from other objects. This approach excels in applications like spam detection, medical diagnosis, and speech recognition.
+
+Unsupervised Learning resembles detective work, where computers analyze unlabeled data to discover hidden patterns without guidance. While this might seem less practical initially, it proves valuable for uncovering unexpected insights. Companies use this to segment customers based on purchasing behaviors, while researchers apply it to identify novel drug compounds through molecular pattern analysis.
+
+Reinforcement Learning is like training a pet with treats and penalties. The AI system tries different actions and gets rewards when it does something good or punishment when it makes mistakes. Over time, it learns the best strategies to maximize rewards. This is how AI systems learned to beat humans at chess and Go, and it's also how they're learning to drive cars and manage power grids.
+
+Semi-supervised Learning combines the first two approaches when you have some labeled data but not enough to train a good model. It's useful when getting labeled examples is expensive or time-consuming - like having doctors label medical scans.
+
+### The Reality of Model Development
+Building effective machine learning models involves much more complexity than popular media suggests. The process requires careful attention to multiple stages that determine whether the final system provides genuine value.
+
+Data collection and preparation typically consumes the most time and causes many project failures. Success requires data that accurately represents the real-world problems you're trying to solve. A hiring algorithm trained exclusively on resumes from elite universities will likely fail when encountering candidates from diverse educational backgrounds.
+
+Data scientists invest considerable effort in cleaning datasets - handling missing information, addressing inconsistencies, and managing outliers that could skew results.
+
+Feature Engineering is where you decide what information to feed into your model. This is partly art, partly science. You might have raw data about customers like their age, purchase history, and location, but you need to figure out which combinations of these features actually matter for predicting what they'll buy next. Sometimes creating new features from combinations of existing ones makes the difference between a mediocre model and a great one.
+
+Choosing and Training the Model involves picking the right algorithm for your specific problem. There are hundreds of different approaches, from simple linear regression to complex neural networks with millions of parameters. The choice depends on your data size, how interpretable the results need to be, and how much computing power you have available.
+
+Testing and Validation is crucial because it tells you whether your model will actually work in the real world or just on your training data. You typically split your data into different chunks - some for training, some for tuning the model, and some for final testing that the model never sees until the very end.
+
+Deployment and Monitoring is where your model meets reality, and this is often where things go wrong. A model that worked perfectly in the lab might fail when it encounters real users, changing conditions, or data that's slightly different from what it was trained on.
+
+## Recognizing Good Learning
+### What Makes AI Learning "Good"?
+Not all machine learning is created equal. Some AI systems learn in ways that are robust, fair, and helpful, while others might seem to work but actually have serious flaws that only show up later. Understanding the difference is crucial if we want to build AI we can trust.
+
+Generalization is probably the most important quality of good learning. A model that only works on the exact data it was trained on is pretty useless - it's like a student who memorizes textbook answers but can't apply the concepts to new problems. Good AI systems should perform well on new, unseen data from the same domain. If your spam filter works great on emails from 2020 but fails completely on 2023 emails because spammers changed their tactics, then it didn't really learn the underlying patterns of what makes something spam.
+
+Robustness means the system doesn't break when things get a little weird. Real-world data is messy, and good AI systems should handle this gracefully. If your self-driving car's vision system stops working properly just because it's raining or there's a weird shadow, that's a problem. Robust systems maintain their performance even when conditions change slightly from what they were trained on.
+
+Fairness is becoming increasingly important as AI systems make more decisions that affect people's lives. A good learning system shouldn't systematically treat certain groups of people unfairly. This means being careful about biases in training data and making sure the system's decisions are based on relevant factors rather than things like race or gender that shouldn't matter for most applications.
+
+Interpretability isn't always necessary, but it's important when AI systems make high-stakes decisions. If an AI system denies someone a loan or recommends a medical treatment, people have a right to understand why. Some AI approaches naturally provide explanations, while others are more like "black boxes" that give answers without showing their work.
+
+Efficiency matters because AI systems need to work in the real world with limited computing resources and time constraints. A medical diagnosis system that takes three days to analyze a scan isn't very useful, even if it's extremely accurate.
+
+### Signs That Learning Is Working Well
+There are several ways to tell if an AI system is learning properly, both through technical metrics and more general observations about how it behaves.
+
+Consistent Performance Across Different Datasets is a key indicator. If your model works great on one test set but poorly on another similar one, it probably hasn't learned the right patterns. Good models show stable performance across multiple evaluation scenarios.
+
+Learning Curves That Make Sense can tell you a lot about what's happening during training. You want to see both training and validation performance improving over time, with the gap between them staying reasonable. If training performance keeps getting better but validation performance gets worse, your model is probably memorizing rather than learning.
+
+Feature Importance That Matches Domain Knowledge is another good sign. If you're building a model to predict house prices and it thinks the most important factor is the color of the front door rather than location or size, something's probably wrong. Good models tend to rely on features that human experts would also consider important.
+
+Robustness to Small Changes indicates solid learning. If tiny modifications to input data cause dramatic changes in output, the model might be relying on irrelevant details rather than meaningful patterns.
+
+Performance Across Different Groups helps identify whether the system has learned fair and generalizable patterns. A hiring algorithm that works well for candidates from some universities but poorly for others might have learned irrelevant biases rather than job-relevant skills.
+
+## Misuse of Artificial Intelligence Technologies
+### Warning Signs of AI Being Used Badly
+Unfortunately, the same technologies that can solve important problems can also be misused in ways that harm individuals and society. Recognizing these warning signs is important for protecting ourselves and holding organizations accountable.
+
+Algorithmic Bias and Discrimination is probably the most common form of AI misuse, and it often happens without anyone intending it. This occurs when AI systems consistently treat certain groups unfairly, usually because of biased training data or flawed assumptions during development. For example, if a company uses an AI system for hiring that was trained on historical data from when the company hired mostly white men, the system might learn to prefer candidates who look like those historical hires, even though gender and race shouldn't be relevant factors.
+
+Privacy Violations happen when AI systems collect or use personal information in ways people didn't agree to or wouldn't expect. This includes facial recognition systems that identify people without their consent, or data analysis that infers sensitive information like health conditions or political beliefs from seemingly innocent data like shopping patterns or social media activity.
+
+Deepfakes and Fake Content represent a newer but growing problem where AI is used to create convincing but false videos, audio recordings, or text. While this technology has some legitimate uses (like dubbing movies or helping people with speech disabilities), it's increasingly being used to spread misinformation, create fake news, or even harass individuals by putting their faces on inappropriate content.
+
+Surveillance and Social Control occurs when AI technologies are used to monitor and control populations in ways that threaten privacy and freedom. This includes mass surveillance systems that track citizens' movements and activities, or social credit systems that use AI to score people's behavior and restrict their access to services based on these scores.
+
+Market Manipulation can happen when AI systems are used to gain unfair advantages in financial markets or to manipulate consumer behavior in harmful ways. High-frequency trading algorithms that manipulate stock prices or recommendation systems designed to promote addictive behaviors are examples of this kind of misuse.
+
+### Real Examples of AI Gone Wrong
+Looking at specific cases where AI has been misused helps us understand both the scope of the problem and what we need to watch out for.
+
+Biased Criminal Justice Tools have been a major issue in the United States. Risk assessment algorithms used to help judges make decisions about bail, sentencing, and parole have been shown to be biased against minority defendants. These systems assign higher risk scores to Black defendants than white defendants with similar criminal histories, potentially leading to harsher treatment by the justice system. The problem is that these algorithms were trained on historical data that reflects decades of biased policing and judicial decisions.
+
+Discriminatory Hiring Algorithms have also caused problems. Amazon famously had to scrap an experimental hiring tool because it systematically discriminated against women. The system was trained on resumes submitted to Amazon over a 10-year period, during which time the majority of hires were men, especially in technical roles. The AI learned to prefer resumes that looked like those of previously successful candidates, which meant it downgraded resumes containing words like "women's" (as in "women's chess club captain") or from all-women's colleges.
+
+Social Media Manipulation has become a major concern as recommendation algorithms optimize for engagement rather than truth or social good. These systems have been shown to promote divisive content, conspiracy theories, and misinformation because controversial content tends to generate more clicks, comments, and shares. This can create "echo chambers" where people only see information that confirms their existing beliefs and can contribute to political polarization and the spread of false information.
+
+Healthcare AI Bias has shown up in several concerning ways. Some AI diagnostic tools work poorly for certain racial groups because they were trained primarily on data from white patients. For example, pulse oximeters (devices that measure blood oxygen levels) have been shown to be less accurate for patients with darker skin, and some dermatology AI systems are much better at identifying skin cancer in light-skinned patients than in darker-skinned ones.
+
+Predictive Policing Problems occur when AI systems trained on biased historical crime data direct police to focus on certain neighborhoods or communities, creating a cycle where increased policing leads to more arrests, which generates more data that justifies continued heavy policing in those areas. This can perpetuate racial and socioeconomic inequalities in how the justice system treats different communities.
+
+### Broader Impact on Society
+The misuse of AI doesn't just affect the direct victims - it has broader consequences that can undermine trust in technology and create systemic problems for society.
+
+Loss of Public Trust is a major long-term consequence. When AI systems fail in dramatic or unfair ways, it makes people skeptical of all AI applications, including potentially beneficial ones. This can slow down the adoption of AI technologies that could genuinely help people, like diagnostic tools that could save lives or environmental monitoring systems that could help fight climate change.
+
+Regulatory Overreaction sometimes follows high-profile AI failures. While some regulation is necessary and helpful, poorly designed rules created in response to AI misuse can stifle innovation and prevent the development of beneficial applications. The challenge is creating regulations that prevent harm without throwing out the baby with the bathwater.
+
+Increased Inequality can result when AI systems systematically advantage some groups over others, or when the benefits of AI are concentrated among people who are already privileged. If AI-powered education tools only work well for students from certain backgrounds, or if AI job-matching systems only help people who already have strong networks, these technologies could make existing inequalities worse rather than better.
+
+Threats to Democracy can emerge when AI is used to manipulate elections, spread disinformation, or undermine people's ability to make informed decisions about important issues. The ability to create convincing fake content at scale, combined with AI-powered targeting of misinformation, poses serious challenges to democratic processes that depend on informed public debate.
+
+## Responsible Model Development Practices
+### Ethical Considerations in AI Development
+Building AI systems that are beneficial rather than harmful requires thinking about ethics from the very beginning of the development process, not just at the end. This means considering how the technology might affect different groups of people and what values should guide its development and deployment.
+
+Fairness and Non-discrimination should be central concerns throughout AI development. This means actively working to identify and eliminate biases rather than just hoping they won't appear. Developers need to think carefully about their training data - does it represent all the groups that will be affected by the system? They also need to test their systems across different demographic groups to make sure they work fairly for everyone.
+
+Transparency and Accountability are crucial for building trust and enabling oversight. People should be able to understand how AI systems that affect them work, at least at a high level. This doesn't mean every technical detail needs to be public, but there should be clear explanations of what the system does, what data it uses, and what its limitations are. There also need to be clear lines of responsibility - when an AI system makes a mistake, it should be clear who is accountable and how problems will be fixed.
+
+Privacy Protection requires careful attention to how personal data is collected, used, and stored. AI developers should follow principles like data minimization (only collecting data that's actually needed), purpose limitation (only using data for the stated purpose), and giving people control over their own information. New techniques like differential privacy and federated learning can help protect privacy while still enabling useful AI applications.
+
+Human Control and Oversight are important for maintaining human agency, especially in high-stakes applications. AI systems should generally augment human decision-making rather than completely replacing it, and there should always be ways for humans to intervene when things go wrong. This is particularly important in areas like healthcare, criminal justice, and financial services where AI decisions can significantly impact people's lives.
+
+Beneficence and Avoiding Harm mean that AI development should be guided by a genuine desire to help people and make the world better. This requires thinking carefully about potential negative consequences and building in safeguards to prevent misuse. It also means being honest about what AI can and can't do, rather than overselling capabilities or hiding limitations.
+
+### Best Practices for Responsible AI Development
+Translating ethical principles into practical development processes requires specific practices and approaches that teams can implement throughout the AI development lifecycle.
+
+Diverse Development Teams are essential for identifying potential problems and biases that might not be obvious to people from similar backgrounds. Teams should include people with different technical skills, but also different life experiences, cultural backgrounds, and perspectives on the problem being solved. Including ethicists, social scientists, and representatives from affected communities can help identify issues that purely technical teams might miss.
+
+Ethical Review Processes should be built into the development timeline, not added as an afterthought. This might involve ethics committees that review projects at key milestones, or mandatory ethical impact assessments for certain types of AI applications. The review process should have real authority to require changes or even stop projects if ethical concerns can't be adequately addressed.
+
+Inclusive Design Approaches involve affected communities in the design process rather than just developing AI systems for them. This might mean conducting interviews or focus groups with potential users, partnering with community organizations, or including user representatives on development teams. The goal is to ensure that AI systems actually meet people's real needs rather than what developers think their needs are.
+
+Comprehensive Testing should go beyond just checking technical performance to include testing for fairness, robustness, and potential misuse. This means testing systems with different demographic groups, in different environments, and with adversarial inputs designed to expose vulnerabilities. It also means having clear criteria for what constitutes acceptable performance across different groups and use cases.
+
+Ongoing Monitoring is necessary because AI systems can change behavior over time as they encounter new data or as the environment changes. Systems should be monitored for performance degradation, bias drift, and unexpected behaviors. There should also be clear processes for updating or retiring systems when problems are identified.
+
+Clear Documentation helps ensure that everyone involved understands what the AI system does, how it works, and what its limitations are. This includes technical documentation for developers and maintainers, but also user-friendly explanations for people who will be affected by the system. Model cards and similar approaches can help standardize this documentation.
+
+Stakeholder Engagement creates ongoing dialogue with users, affected communities, regulators, and other interested parties. This helps developers understand how their systems are actually being used and what problems might be emerging. It also helps build trust and legitimacy for AI applications.
+
+Continuous Learning means staying up-to-date with research on AI ethics and safety, learning from failures in the field, and adapting practices as understanding evolves. The field of AI ethics is still developing rapidly, so what we consider best practices today might need to be updated as we learn more.
+
+## Conclusion
+After examining both the promising and problematic aspects of AI technologies, it's clear that we're at a critical point in history where the choices we make about AI development will have lasting consequences for society. The technology itself is neither inherently good nor bad - it's a powerful tool that can be used for beneficial or harmful purposes depending on how we develop and deploy it.
+
+The potential benefits of AI are genuinely exciting. We're talking about technologies that could help solve climate change, cure diseases, reduce poverty, and expand human knowledge in ways that seemed like science fiction just a few decades ago. Machine learning systems are already helping doctors diagnose diseases earlier, helping scientists discover new materials and drugs, and helping farmers grow food more efficiently. As these technologies continue to improve, their potential for positive impact will only grow.
+
+But we've also seen that AI can perpetuate and amplify existing inequalities, violate privacy, spread misinformation, and be used for surveillance and control. These aren't just theoretical risks - they're problems that are already affecting real people's lives. The same technologies that can help doctors save lives can also embed racial bias into healthcare. The same algorithms that can help match people with jobs they'll love can also discriminate against qualified candidates based on irrelevant characteristics.
+
+The key insight is that these outcomes aren't inevitable - they're the result of choices made during development and deployment. AI systems don't develop bias on their own; they learn it from biased data or biased decisions made by their creators. AI systems don't violate privacy by accident; they do it because they were designed or deployed without adequate privacy protections.
+
+This means that the responsibility for ensuring AI benefits humanity lies with all of us - developers, companies, governments, and citizens. We need to demand better from AI systems, support research into safe and beneficial AI, and create governance structures that encourage innovation while preventing harm.
+
+For the AI development community, this means taking ethical considerations seriously from the beginning of projects, not as afterthoughts. It means building diverse teams, engaging with affected communities, and being honest about limitations and risks. It means prioritizing fairness, transparency, and human welfare over pure technical performance or short-term profits.
+
+For policymakers, it means creating regulations that are informed by technical reality but guided by human values. It means supporting research into AI safety and ethics, creating incentives for responsible development, and ensuring that the benefits of AI are shared broadly across society rather than concentrated among a few.
+
+For citizens, it means staying informed about AI developments, demanding transparency from organizations that use AI systems that affect our lives, and participating in democratic processes that will shape how AI is governed. It also means supporting education and research that will help us understand and manage these technologies better.
+
+The future of AI isn't predetermined. We have the opportunity to shape these technologies so that they serve human flourishing rather than undermining it. But this will require sustained effort, careful attention to ethical considerations, and a commitment to ensuring that the benefits of AI are shared by everyone, not just the privileged few.
+
+The most important thing to remember is that we're still in the early stages of the AI revolution. The decisions we make now about how to develop, deploy, and govern these technologies will have consequences for generations to come. We have the opportunity to get this right, but only if we take the responsibility seriously and work together to ensure that AI develops in ways that reflect our best values and highest aspirations.
+
+This isn't just a technical challenge - it's a fundamentally human one. The question isn't just whether we can build more powerful AI systems, but whether we can build them in ways that make the world more just, more equitable, and more conducive to human flourishing. That's the real test of whether we've learned to use this powerful technology wisely.
+
+EOF
+
+echo "Sample data downloaded to the raw/ directory"
+echo "You can now process the data using: python -m src.data_processing.preprocessor" 
